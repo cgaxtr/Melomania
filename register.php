@@ -13,11 +13,16 @@
     <title>Melomania</title>
   </head>
   <body>
+    <?php include_once ('cabecera.php');?>
 
-    <?php include ('cabecera.php');?>
+    <?php
+    include_once('configDB.php');
+      $con = mysqli_connect(HOST, USER, PASS, DB);
+      mysqli_close($con);
+      ?>
 
     <div class="wrapper">
-      <form class="form-signin">
+      <form class="form-signin" method="post">
         <h2 class="form-signin-heading">Register</h2>
         <input id="first" type="text" class="form-control" name="name" placeholder="Name" required="true" autofocus="" />
         <input type="text" class="form-control" name="lastname" placeholder="Last Name" required="true" />

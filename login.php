@@ -13,10 +13,11 @@
     <title>Melomania</title>
   </head>
   <body>
-    <?php include ('cabecera.php');?>
+
+    <?php include_once ('cabecera.php');?>
 
     <div class="wrapper">
-      <form class="form-signin">
+      <form class="form-signin" method="post">
         <h2 class="form-signin-heading">Login</h2>
         <input id="first" type="text" class="form-control" name="username" placeholder="Email Address" required="" autofocus="" />
         <input id="last" type="password" class="form-control" name="password" placeholder="Password" required=""/>
