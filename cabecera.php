@@ -5,8 +5,8 @@
     </div>
     <ul class="nav navbar-nav">
       <li class="active"><a href="index.php">Inicio</a></li>
-      <li><a href="#">Page 1</a></li>
-      <li><a href="#">Page 2</a></li>
+      <li><a href="./mensajes.php">Mensajes</a></li>
+      <li><a href="./grupos.php">Grupos</a></li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
       <li><a href="register.php"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>

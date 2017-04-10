@@ -59,3 +59,12 @@ body {
 	  margin-bottom: 20px;
 	  border-radius: 0;
 	}
+
+	.list-group{
+		width: 75%;
+		margin: auto;
+	}
+
+	.author{
+		margin: 0 0 5px 0;
+	}

@@ -13,13 +13,8 @@
     <title>Melomania</title>
   </head>
   <body>
+    
     <?php include_once ('cabecera.php');?>
-
-    <?php
-    include_once('configDB.php');
-      $con = mysqli_connect(HOST, USER, PASS, DB);
-      mysqli_close($con);
-      ?>
 
     <div class="wrapper">
       <form class="form-signin" method="post">
