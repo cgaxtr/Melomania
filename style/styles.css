@@ -5,7 +5,7 @@ body {
 }
 
 .wrapper {
-	margin-top: 80px;
+	margin-top: 45px;
   margin-bottom: 80px;
 }
 
@@ -67,4 +67,24 @@ body {
 
 	.author{
 		margin: 0 0 5px 0;
+	}
+
+	.message{
+		width: 75%;
+		margin: auto;
+		padding-bottom: 15px;
+		cursor: pointer;
+	}
+	.message p{
+		display: inline;
+		margin-left: 5px;
+	}
+
+	textarea{
+		resize: none;
+	}
+
+	.modal-body label{
+		margin-top: 10px;
+		margin-bottom: 0px;
 	}
