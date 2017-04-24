@@ -1,3 +1,8 @@
+<?php session_start();
+$_SESSION["login"] = True;
+$_SESSION["name"] = "Carlos";
+//unset($_SESSION["login"]);
+?>
 <!DOCTYPE html>
 <html>
   <head>
@@ -13,18 +18,32 @@
     <title>Melomania</title>
   </head>
   <body>
-    
+
     <?php include_once ('cabecera.php');?>
 
     <div class="wrapper">
-      <form class="form-signin" method="post">
-        <h2 class="form-signin-heading">Register</h2>
-        <input id="first" type="text" class="form-control" name="name" placeholder="Name" required="true" autofocus="" />
-        <input type="text" class="form-control" name="lastname" placeholder="Last Name" required="true" />
-        <input type="text" class="form-control" name="email" placeholder="Email" required="true" />
-        <input id="last" type="password" class="form-control" name="password" placeholder="Password" required="true"/>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
-      </form>
+      <?php
+      if(isset($_POST['submit'])){
+        //$usuario = new Usuario();
+        //$usuDAO = new UsuarioDAO();
+        //if($usuDAO->register($usuario)){}
+        ?>
+        <div class="form-signin correct">
+          <h2 class="form-signin-heading">Tu cuenta se ha creado correctamente</h2>
+          <img src="./images/logo1.png"></img>
+        </div>
+      <?php
+      }else{ ?>
+        <form class="form-signin" method="post">
+          <h2 class="form-signin-heading">Registrate</h2>
+          <input id="first" type="text" class="form-control" name="name" placeholder="Name" required autofocus="" />
+          <input type="text" class="form-control" name="lastname" placeholder="Last Name" required/>
+          <input type="text" class="form-control" name="email" placeholder="Email" required/>
+          <input id="last" type="password" class="form-control" name="password" placeholder="Password" required/>
+          <button class="btn btn-lg btn-primary btn-block" type="submit" name="submit">Registrar</button>
+        </form>
+    <?php
+    } ?>
     </div>
   </body>
 </html>

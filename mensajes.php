@@ -1,3 +1,4 @@
+<?php session_start();?>
 <!DOCTYPE html>
 <html>
   <head>
@@ -34,6 +35,13 @@
         <div class="modal-body">
           <label for="destinatary">Destinatario</label>
           <input type="text" class="form-control" id="destinatary" placeholder="Destinatario">
+          <!--<select>
+            <option value="volvo">Volvo</option>
+            <option value="saab">Saab</option>
+            <option value="mercedes">Mercedes</option>
+            <option value="audi">Audi</option>
+          </select>
+        -->
           <label for="title">Titulo</label>
           <input type="text" class="form-control" id="title" placeholder="Titulo">
           <label for="text">Cuerpo mensaje</label>

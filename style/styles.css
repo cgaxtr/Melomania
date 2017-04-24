@@ -2,6 +2,7 @@
 
 body {
 	background: #eee !important;
+	padding-top: 45px;
 }
 
 .wrapper {
@@ -87,4 +88,9 @@ body {
 	.modal-body label{
 		margin-top: 10px;
 		margin-bottom: 0px;
+	}
+
+	.correct{
+		background-color: #DAF7A6;
+		text-align: center;
 	}
