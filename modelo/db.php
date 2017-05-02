@@ -32,5 +32,11 @@
     public function __wakeup(){
       trigger_error("This method is not allowed");
     }
+
+    public function __destruct() {
+        if ( isset($this->connection) ) {
+            $this->connection = null;
+        }
+    }
   }
  ?>
