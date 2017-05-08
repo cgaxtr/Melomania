@@ -1,5 +1,6 @@
 <?php
   require_once("db.php");
+  require_once("usuario.php");
   class UsuarioDAO{
 
     public function login($email, $pass){
