@@ -1,5 +1,6 @@
 <?php
   require_once("db.php");
+  requirer_once("mensaje.php");
 
   class MensajeDAO{
 
