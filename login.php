@@ -1,4 +1,18 @@
-<?php session_start();?>
+<?php session_start();
+require_once("modelo/usuarioDAO.php");
+
+if(isset($_POST['submit']) && $_POST['submit'] == 'login'){
+  $email = $_POST["username"];
+  $pass =  $_POST["password"];
+  $usuDAO = new UsuarioDAO();
+  if($result = $usuDAO->login($email,$pass)){
+    $_SESSION["login"] = True;
+    $_SESSION["name"] = $result->getNombre();
+    header('Location: index.php');
+  }
+}
+
+?>
 <!DOCTYPE html>
 <html>
   <head>
@@ -25,7 +39,7 @@
         <label class="checkbox">
           <input type="checkbox" value="remember-me" id="rememberMe" name="rememberMe"> Remember me
         </label>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
+        <button class="btn btn-lg btn-primary btn-block" value="login" type="submit" name="submit">Login</button>
       </form>
     </div>
   </body>
