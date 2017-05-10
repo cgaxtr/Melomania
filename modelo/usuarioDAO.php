@@ -11,7 +11,7 @@
       $result = $query->get_result()->fetch_assoc();
 
       if ($result){
-        return new Usuario($result["id"], $result["nombre"], $result["apellido"], $result["email"], $result["contrasena"]);
+        return new Usuario($result["id"], $result["nombre"], $result["apellido"], $result["email"], $result["contrasena"], $result["type"]);
       }else {
         return NULL;
       }
@@ -42,8 +42,13 @@
 
     }
 
-    public function getIdByEmail($email){}
-
-    public function getAllEmails(){}
+    //public function getIdByEmail($email){
+      //$con = DB::getInstance()->getConnection();
+      //$query = $con->prepare("SELECT id FROM usuarios WHERE email = ?");
+      //$query->bind_param('s', $email);
+      //$query->execute();
+      //$result = $query->get_result()->fetch_assoc();
+      //return $result["id"];
+    //}
   }
 ?>

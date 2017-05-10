@@ -7,6 +7,9 @@
       <li class="active"><a href="index.php">Inicio</a></li>
       <li><a href="./mensajes.php">Mensajes</a></li>
       <li><a href="./grupos.php">Grupos</a></li>
+      <?php
+      if(isset($_SESSION["type"]) && $_SESSION["type"] == "admin"){ ?>
+        <li><a href="./grupos.php">Admin</a></li> <?php } ?>
     </ul>
     <ul class="nav navbar-nav navbar-right">
       <?php

@@ -1,7 +1,19 @@
 <?php session_start();
-$_SESSION["login"] = True;
-$_SESSION["name"] = "Carlos";
-//unset($_SESSION["login"]);
+include("./modelo/usuario.php");
+include("./modelo/usuarioDAO.php");
+
+if(isset($_POST['submit']) && $_POST['submit'] == 'register'){
+  $boolRegister = False;
+  $usuario = new Usuario(null, $_POST['name'], $_POST['lastname'], $_POST['email'], $_POST['password'], null);
+  $uDao = new UsuarioDAO();
+  if($boolRegister = $uDao->register($usuario)){
+    $_SESSION["login"] = True;
+    $_SESSION["name"] = $_POST["name"];
+    $_SESSION["type"] = "user";
+    $_SESSION["email"] = $_POST["email"];
+  }
+}
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -23,27 +35,22 @@ $_SESSION["name"] = "Carlos";
 
     <div class="wrapper">
       <?php
-      if(isset($_POST['submit'])){
-        //$usuario = new Usuario();
-        //$usuDAO = new UsuarioDAO();
-        //if($usuDAO->register($usuario)){}
-        ?>
-        <div class="form-signin correct">
-          <h2 class="form-signin-heading">Tu cuenta se ha creado correctamente</h2>
-          <img src="./images/logo1.png"></img>
-        </div>
-      <?php
-      }else{ ?>
-        <form class="form-signin" method="post">
-          <h2 class="form-signin-heading">Registrate</h2>
-          <input id="first" type="text" class="form-control" name="name" placeholder="Name" required autofocus="" />
-          <input type="text" class="form-control" name="lastname" placeholder="Last Name" required/>
-          <input type="text" class="form-control" name="email" placeholder="Email" required/>
-          <input id="last" type="password" class="form-control" name="password" placeholder="Password" required/>
-          <button class="btn btn-lg btn-primary btn-block" type="submit" name="submit">Registrar</button>
-        </form>
-    <?php
-    } ?>
+      if(isset($boolRegister) && $boolRegister){
+        echo "registrado correctamente";
+      }else if(isset($boolRegister) && !$boolRegister){
+        echo "registro fallido";
+      }else{
+        echo "formulario registro";
+      }
+       ?>
+      <form class="form-signin" method="post">
+        <h2 class="form-signin-heading">Registrate</h2>
+        <input id="first" type="text" class="form-control" name="name" placeholder="Name" required autofocus="" />
+        <input type="text" class="form-control" name="lastname" placeholder="Last Name" required/>
+        <input type="text" class="form-control" name="email" placeholder="Email" required/>
+        <input id="last" type="password" class="form-control" name="password" placeholder="Password" required/>
+        <button class="btn btn-lg btn-primary btn-block" value="register" type="submit" name="submit">Registrar</button>
+      </form>
     </div>
   </body>
 </html>

@@ -8,6 +8,8 @@ if(isset($_POST['submit']) && $_POST['submit'] == 'login'){
   if($result = $usuDAO->login($email,$pass)){
     $_SESSION["login"] = True;
     $_SESSION["name"] = $result->getNombre();
+    $_SESSION["type"] = $result->getTypeUser();
+    $_SESSION["email"] = $result->getEmail();
     header('Location: index.php');
   }
 }

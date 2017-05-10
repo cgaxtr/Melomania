@@ -1,15 +1,15 @@
 <?php
   class Mensaje{
     private $id;
-    private $idUsuOrigen;
-    private $idUsuDestino;
+    private $usuOrigen;
+    private $usuDestino;
     private $titulo;
     private $texto;
 
-    public function __construct($id, $idOrigen, $idDestino, $titulo, $texto){
+    public function __construct($id, $usuOrigen, $usuDestino, $titulo, $texto){
       $this->id = $id;
-      $this->idUsuOrigen = $idOrigen;
-      $this->idUsuDestino = $idDestino;
+      $this->usuOrigen = $usuOrigen;
+      $this->usuDestino = $usuDestino;
       $this->titulo = $titulo;
       $this->texto = $texto;
     }
@@ -18,12 +18,12 @@
       return $this->id;
     }
 
-    public function getIdUsuarioOrigen(){
-      return $this->idUsuOrigen;
+    public function getUsuarioOrigen(){
+      return $this->usuOrigen;
     }
 
-    public function getIdUsuarioDestino(){
-      return $this->idUsuDestino;
+    public function getUsuarioDestino(){
+      return $this->usuDestino;
     }
 
     public function getTitulo(){
@@ -32,11 +32,6 @@
 
     public function getTexto(){
       return $this->texto;
-    }
-
-    //testing method
-    public function toString(){
-      return $this->id." ".$this->idUsuOrigen." ".$this->idUsuDestino." ".$this->titulo." ".$this->texto;
     }
   }
  ?>
