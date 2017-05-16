@@ -5,13 +5,15 @@
     private $usuDestino;
     private $titulo;
     private $texto;
+    private $leido;
 
-    public function __construct($id, $usuOrigen, $usuDestino, $titulo, $texto){
+    public function __construct($id, $usuOrigen, $usuDestino, $titulo, $texto, $leido){
       $this->id = $id;
       $this->usuOrigen = $usuOrigen;
       $this->usuDestino = $usuDestino;
       $this->titulo = $titulo;
       $this->texto = $texto;
+      $this->leido = $leido;
     }
 
     public function getId(){
@@ -32,6 +34,10 @@
 
     public function getTexto(){
       return $this->texto;
+    }
+
+    public function getLeido(){
+      return $this->leido;
     }
   }
  ?>

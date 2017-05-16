@@ -99,3 +99,7 @@ body {
 		background-color: #F16E51;
 		text-align: center;
 	}
+
+	.ui-autocomplete.ui-front{
+		z-index: 1051;
+	}
