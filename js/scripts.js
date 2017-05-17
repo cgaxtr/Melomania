@@ -4,3 +4,7 @@
       minLength: 1
     });
   });
+
+  $( function() {
+    $( "#datepicker" ).datepicker({changeYear: true});
+  } );

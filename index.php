@@ -1,7 +1,4 @@
-<?php session_start();
-//unset($_SESSION["login"]);
-//$_SESSION["login"] = True;
-//$_SESSION["name"] = "Carlos";?>
+<?php session_start();?>
 <!DOCTYPE html>
 <html>
   <head>
@@ -18,7 +15,7 @@
   </head>
   <body>
     <?php include ('cabecera.php');?>
-    
+
     <div class="jumbotron">
       <div class="container">
         <h1>Bienvenido</h1>

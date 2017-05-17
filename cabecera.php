@@ -20,7 +20,7 @@
       <?php
       if(isset($_SESSION["login"])){
       ?>
-        <li><a ><spam class="glyphicon glyphicon-user"></spam> <?php echo $_SESSION["name"];?></a></li>
+        <li><a href="profile.php"><spam class="glyphicon glyphicon-user"></spam> <?php echo $_SESSION["name"];?></a></li>
         <li><a href="logout.php"><spam class="glyphicon glyphicon-log-out"></spam> Log out</a></li>
       <?php
       }else{
