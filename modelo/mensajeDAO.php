@@ -9,14 +9,15 @@
 
         //$query = $con->prepare("INSERT INTO mensajes (idUsuario, idUsuarioDestino, titulo, texto) VALUES (?,?,?,?)");
 
-        $query = $con->prepare("INSERT INTO mensajes (idUsuOrigen, idUsuDestino, titulo, texto) VALUES ((SELECT id FROM usuarios WHERE email=?), (SELECT id FROM usuarios WHERE email=?) ,?,?)");
+        $query = $con->prepare("INSERT INTO mensajes (idUsuOrigen, idUsuDestino, titulo, texto, leido) VALUES ((SELECT id FROM usuarios WHERE email=?), (SELECT id FROM usuarios WHERE email=?) ,?,?,?)");
 
         $idUsuario = $mensaje->getUsuarioOrigen();
         $idUsuarioDestino = $mensaje->getUsuarioDestino();
         $titulo = $mensaje->getTitulo();
         $texto = $mensaje->getTexto();
+        $leido = $mensaje->getLeido();
 
-        $query->bind_param('ssss', $idUsuario, $idUsuarioDestino, $titulo, $texto);
+        $query->bind_param('ssssi', $idUsuario, $idUsuarioDestino, $titulo, $texto, $leido);
         return $query->execute();
       }
 
@@ -26,11 +27,11 @@
         $mensajesList = array();
 
         $con = DB::getInstance()->getConnection();
-        $consulta = "SELECT mensajes.id, titulo, texto, nombre, apellido, leido FROM mensajes INNER JOIN usuarios ON mensajes.idUsuOrigen = usuarios.id";
+        $consulta = "SELECT mensajes.id, titulo, texto, nombre, apellido, leido FROM mensajes INNER JOIN usuarios ON mensajes.idUsuOrigen = usuarios.id WHERE idUsuDestino is NULL AND id_grupo is NULL";
         if ($resultado = $con->query($consulta)){
           while($row = $resultado->fetch_row()){
             //$id, $usuOrigen, $usuDestino, $titulo, $texto)
-            $mensaje = new Mensaje($row[0], $row[3]." ".$row[4], NULL,  $row[1], $row[2], $row[5]);
+            $mensaje = new Mensaje($row[0], $row[3]." ".$row[4],NULL, NULL,  $row[1], $row[2], $row[5]);
             array_push($mensajesList, $mensaje);
           }
         }
@@ -44,13 +45,15 @@
         $mensajeList = array();
 
         $con = DB::getInstance()->getConnection();
-        $query = $con->prepare("SELECT mensajes.id, titulo, texto, leido, origen.nombre as nombreOrigen, origen.apellido as apellidoOrigen, destino.nombre as nombreDestino, destino.apellido as apellidoDestino FROM mensajes, usuarios as destino, usuarios as origen WHERE mensajes.idUsuOrigen = origen.id and mensajes.idUsuDestino = destino.id and idUsuDestino = (SELECT id FROM usuarios WHERE email = ?)");
+        $query = $con->prepare("SELECT mensajes.id, titulo, texto, leido, origen.nombre as nombreOrigen, origen.apellido as apellidoOrigen,
+          destino.nombre as nombreDestino, destino.apellido as apellidoDestino FROM mensajes, usuarios as destino, usuarios as origen
+          WHERE mensajes.idUsuOrigen = origen.id and mensajes.idUsuDestino = destino.id and idUsuDestino = (SELECT id FROM usuarios WHERE email = ?)");
         $query->bind_param('s', $email);
         $query->execute();
         $result = $query->get_result();
 
         while ($row = $result->fetch_assoc()) {
-          $mensaje = new Mensaje($row["id"], $row["nombreOrigen"]." ".$row["apellidoOrigen"], $row["nombreDestino"]." ".$row["apellidoDestino"] , $row["titulo"], $row["texto"], $row["leido"]);
+          $mensaje = new Mensaje($row["id"], $row["nombreOrigen"]." ".$row["apellidoOrigen"], $row["nombreDestino"]." ".$row["apellidoDestino"], NULL, $row["titulo"], $row["texto"], $row["leido"]);
           array_push($mensajeList, $mensaje);
         }
 
@@ -72,6 +75,39 @@
         $query = $con->prepare("UPDATE mensajes SET leido = TRUE WHERE idUsuDestino = (SELECT id FROM usuarios WHERE email=?)");
         $query->bind_param('s', $email);
         $query->execute();
+      }
+
+      public function getMessagesFromGroup($nombre){
+        $listMessages = array();
+
+        $con = DB::getInstance()->getConnection();
+        $query = $con->prepare("SELECT mensajes.id, usuarios.nombre, usuarios.apellido, texto, titulo FROM mensajes JOIN grupo ON mensajes.id_grupo = grupo.id_grupo JOIN usuarios ON mensajes.idUsuOrigen = usuarios.id WHERE grupo.nombre = ?");
+        $query->bind_param('s', $nombre);
+        $query->execute();
+        $result = $query->get_result();
+
+        while ($row = $result->fetch_assoc()) {
+          $mensaje = new Mensaje($row["id"], $row["nombre"]." ".$row["apellido"], NULL, NULL, $row["titulo"], $row["texto"], NULL);
+          array_push($listMessages, $mensaje);
+        }
+
+        return $listMessages;
+      }
+
+      public function sendToGroup($mensaje){
+        $con = DB::getInstance()->getConnection();
+
+        $query = $con->prepare("INSERT INTO mensajes (idUsuOrigen, idUsuDestino, titulo, texto, leido, id_grupo) VALUES ((SELECT id FROM usuarios WHERE email=?), (SELECT id FROM usuarios WHERE email=?) ,?,?,?,(SELECT id_grupo FROM grupo WHERE nombre=?))");
+
+        $idUsuario = $mensaje->getUsuarioOrigen();
+        $idUsuarioDestino = $mensaje->getUsuarioDestino();
+        $titulo = $mensaje->getTitulo();
+        $texto = $mensaje->getTexto();
+        $leido = $mensaje->getLeido();
+        $grupo = $mensaje->getGrupo();
+
+        $query->bind_param('ssssis', $idUsuario, $idUsuarioDestino, $titulo, $texto, $leido, $grupo);
+        return $query->execute();
       }
   }
  ?>

@@ -2,7 +2,7 @@
 require_once("modelo/mensajeDAO.php");
 if(isset($_POST["submit"])){
   $mesDAO = new MensajeDAO();
-  $message = new Mensaje(NULL, $_SESSION["email"], $_POST["destinatario"], $_POST["titulo"], $_POST["texto"], FALSE);
+  $message = new Mensaje(NULL, $_SESSION["email"], $_POST["destinatario"], NULL, $_POST["titulo"], $_POST["texto"], FALSE);
   $mesDAO->send($message);
 }
 

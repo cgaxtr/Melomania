@@ -20,8 +20,9 @@
       <div class="container">
         <h1>Bienvenido</h1>
         <p>En melomania encontraras un lugar en el que compartir tu afición por la música con el resto, solo regístrate y disfura de la música</p>
-        <!--<p>This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique.</p>-->
-        <p><a class="btn btn-primary btn-lg" href="login.php" role="button">Únete &raquo;</a></p>
+        <?php if (!isset($_SESSION["login"])){ ?>
+          <p><a class="btn btn-primary btn-lg" href="login.php" role="button">Únete &raquo;</a></p>
+        <?php } ?>
       </div>
     </div>
   </body>

@@ -3,8 +3,10 @@
       source: 'modelo/usuariosHandler.php',
       minLength: 1
     });
-  });
 
-  $( function() {
-    $( "#datepicker" ).datepicker({changeYear: true});
-  } );
+    $( "#datepicker" ).datepicker({
+      changeYear: true,
+      yearRange: "-100:+0"
+    });
+
+  });

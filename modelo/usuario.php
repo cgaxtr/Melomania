@@ -6,14 +6,18 @@
       private $email;
       private $pass;
       private $type;
+      private $fecha;
+      private $estilos;
 
-      public function __construct($id, $nombre, $apellido, $email, $pass, $type){
+      public function __construct($id, $nombre, $apellido, $email, $pass, $type, $fecha, $estilos){
         $this->id = $id;
         $this->nombre = $nombre;
         $this->apellido = $apellido;
         $this->email = $email;
         $this->pass = $pass;
         $this->type = $type;
+        $this->fecha = $fecha;
+        $this->estilos = $estilos;
       }
 
       public function getID(){
@@ -36,8 +40,16 @@
         return $this->pass;
       }
 
-      public function  getTypeUser(){
+      public function getTypeUser(){
         return $this->type;
+      }
+
+      public function getFecha(){
+        return $this->fecha;
+      }
+
+      public function getEstilos(){
+        return $this->estilos;
       }
   }
  ?>

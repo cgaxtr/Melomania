@@ -3,14 +3,16 @@
     private $id;
     private $usuOrigen;
     private $usuDestino;
+    private $grupo;
     private $titulo;
     private $texto;
     private $leido;
 
-    public function __construct($id, $usuOrigen, $usuDestino, $titulo, $texto, $leido){
+    public function __construct($id, $usuOrigen, $usuDestino, $grupo, $titulo, $texto, $leido){
       $this->id = $id;
       $this->usuOrigen = $usuOrigen;
       $this->usuDestino = $usuDestino;
+      $this->grupo = $grupo;
       $this->titulo = $titulo;
       $this->texto = $texto;
       $this->leido = $leido;
@@ -26,6 +28,10 @@
 
     public function getUsuarioDestino(){
       return $this->usuDestino;
+    }
+
+    public function getGrupo(){
+      return $this->grupo;
     }
 
     public function getTitulo(){

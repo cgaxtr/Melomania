@@ -1,10 +1,11 @@
 <?php session_start();
 include("./modelo/usuario.php");
 include("./modelo/usuarioDAO.php");
+include("./modelo/estiloDAO.php");
 
 if(isset($_POST['submit']) && $_POST['submit'] == 'register'){
   $boolRegister = False;
-  $usuario = new Usuario(null, $_POST['name'], $_POST['lastname'], $_POST['email'], $_POST['password'], null);
+  $usuario = new Usuario(null, $_POST['name'], $_POST['lastname'], $_POST['email'], $_POST['password'], null, $_POST["fecha"], $_POST["estilos"]);
   $uDao = new UsuarioDAO();
   if($boolRegister = $uDao->register($usuario)){
     $_SESSION["login"] = True;
@@ -45,30 +46,38 @@ if(isset($_POST['submit']) && $_POST['submit'] == 'register'){
 
     <div class="wrapper">
       <?php
-      if(isset($boolRegister) && $boolRegister){
-        echo "registrado correctamente";
-      }else if(isset($boolRegister) && !$boolRegister){
-        echo "registro fallido";
-      }else{
-        echo "formulario registro";
-      }
+      if(isset($boolRegister) && $boolRegister){ ?>
+        <div class="form-signin correct">
+          <h2 class="form-signin-heading">Tu cuenta se ha creado correctamente</h2>
+          <img src="./images/logo1.png"></img>
+        </div>
+      <?php }else if(isset($boolRegister) && !$boolRegister){ ?>
+        <div class="form-signin incorrect">
+          <h2 class="form-signin-heading">Existe una cuenta asociada a ese email</h2>
+          <img src="./images/logo1.png"></img>
+        </div>
+
+      <?php }else{
        ?>
       <form class="form-signin" method="post">
         <h2 class="form-signin-heading">Registrate</h2>
         <input id="first" type="text" class="form-control" name="name" placeholder="Name" required autofocus="" />
         <input type="text" class="form-control" name="lastname" placeholder="Last Name" required/>
         <input type="text" class="form-control" name="email" placeholder="Email" required/>
-        <input type='text' class="form-control" id="datepicker" placeholder="Date"/>
-        <select class="selectpicker" multiple title="Choose types of music">
-          <option>RAP</option>
-          <option>HIPHOP</option>
-          <option>Relish</option>
+        <input type='text' class="form-control" id="datepicker" placeholder="Date" name="fecha" format="DD-MM-YYYY"/>
+        <select class="selectpicker" multiple title="Choose types of music" name="estilos[]">
+          <?php
+          $estiloDAO = new EstiloDAO();
+          $listEstilos = $estiloDAO->getStyles();
+          foreach ($listEstilos as $estilo) {
+            echo "<option value=".$estilo->getName().">".$estilo->getName()."</option>";
+
+          } ?>
         </select>
-
-
         <input id="last" type="password" class="form-control" name="password" placeholder="Password" required/>
         <button class="btn btn-lg btn-primary btn-block" value="register" type="submit" name="submit">Registrar</button>
       </form>
+      <?php } ?>
     </div>
   </body>
 </html>
