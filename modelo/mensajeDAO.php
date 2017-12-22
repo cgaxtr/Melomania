@@ -27,7 +27,7 @@
         $mensajesList = array();
 
         $con = DB::getInstance()->getConnection();
-        $consulta = "SELECT mensajes.id, titulo, texto, nombre, apellido, leido FROM mensajes INNER JOIN usuarios ON mensajes.idUsuOrigen = usuarios.id WHERE idUsuDestino is NULL AND id_grupo is NULL";
+        $consulta = "SELECT mensajes.id, titulo, texto, nombre, apellido, leido FROM mensajes INNER JOIN usuarios ON mensajes.idUsuOrigen = usuarios.id WHERE idUsuDestino is NULL AND id_grupo is NULL ORDER BY id DESC";
         if ($resultado = $con->query($consulta)){
           while($row = $resultado->fetch_row()){
             //$id, $usuOrigen, $usuDestino, $titulo, $texto)
@@ -47,7 +47,7 @@
         $con = DB::getInstance()->getConnection();
         $query = $con->prepare("SELECT mensajes.id, titulo, texto, leido, origen.nombre as nombreOrigen, origen.apellido as apellidoOrigen,
           destino.nombre as nombreDestino, destino.apellido as apellidoDestino FROM mensajes, usuarios as destino, usuarios as origen
-          WHERE mensajes.idUsuOrigen = origen.id and mensajes.idUsuDestino = destino.id and idUsuDestino = (SELECT id FROM usuarios WHERE email = ?)");
+          WHERE mensajes.idUsuOrigen = origen.id and mensajes.idUsuDestino = destino.id and idUsuDestino = (SELECT id FROM usuarios WHERE email = ? ORDER BY id DESC)");
         $query->bind_param('s', $email);
         $query->execute();
         $result = $query->get_result();
@@ -81,7 +81,7 @@
         $listMessages = array();
 
         $con = DB::getInstance()->getConnection();
-        $query = $con->prepare("SELECT mensajes.id, usuarios.nombre, usuarios.apellido, texto, titulo FROM mensajes JOIN grupo ON mensajes.id_grupo = grupo.id_grupo JOIN usuarios ON mensajes.idUsuOrigen = usuarios.id WHERE grupo.nombre = ?");
+        $query = $con->prepare("SELECT mensajes.id, usuarios.nombre, usuarios.apellido, texto, titulo FROM mensajes JOIN grupo ON mensajes.id_grupo = grupo.id_grupo JOIN usuarios ON mensajes.idUsuOrigen = usuarios.id WHERE grupo.nombre = ? ORDER BY id DESC");
         $query->bind_param('s', $nombre);
         $query->execute();
         $result = $query->get_result();

@@ -9,8 +9,8 @@
     </div>
     <ul class="nav navbar-nav">
       <li class="active"><a href="index.php">Inicio</a></li>
-      <li><a href="./mensajes.php">Mensajes</a></li>
       <?php if (isset($_SESSION["login"])){ ?>
+        <li><a href="./mensajes.php">Mensajes</a></li>
       <li><a href="./md.php">MD <span class="badge"><?php echo $menDAO->getCountNoReadMessages(); ?></span></a></li>
       <li><a href="./grupos.php">Grupos</a></li>
       <?php }

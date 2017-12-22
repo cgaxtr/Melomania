@@ -57,5 +57,18 @@
       return true;
 
     }
+
+    public function getInformation($email){
+      $con = DB::getInstance()->getConnection();
+
+      $query = $con->prepare("SELECT * from usuarios WHERE email=?");
+      $query->bind_param('s',$email);
+      $query->execute();
+
+      $result = $query->get_result()->fetch_assoc();
+
+      return new Usuario($result["id"], $result["nombre"], $result["apellido"], $result["email"], $result["contrasena"], $result["type"], $result["fech_nacimiento"], NULL);
+
+    }
   }
 ?>
